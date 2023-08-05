@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameDirector : MonoBehaviour
 {
@@ -28,6 +29,8 @@ public class GameDirector : MonoBehaviour
 
         txtTimer = GameObject.Find("TxtTimer");
         txtScore = GameObject.Find("TxtScore");
+
+        Score = 0;
     }
 
     // Update is called once per frame
@@ -58,9 +61,46 @@ public class GameDirector : MonoBehaviour
             float y = (0 == Random.Range(0, 2)) ? 0.25f : 1.5f;
             ins.transform.position = new Vector3(x, y, 10);
 
+            // 次の生成時間
             float next = generateWaitTime;
+
+            // 時間が経過するとだんだん生成速度が縮まる
+            if (10 > gameTimer)
+            {
+                next = generateWaitTime * 0.1f;
+            }
+            else if (20 > gameTimer)
+            {
+                next = generateWaitTime * 0.2f;
+            }
+            else if (30 > gameTimer)
+            {
+                next = generateWaitTime * 0.3f;
+            }
+            else if (40 > gameTimer)
+            {
+                next = generateWaitTime * 0.4f;
+            }
+            else if (50 > gameTimer)
+            {
+                next = generateWaitTime * 0.5f;
+            }
 
             generateTimer = next;
         }
+
+        // ゲーム終了判定
+        if (0 > gameTimer)
+        {
+            // リザルトシーンに繊維
+            SceneManager.LoadScene("ResultScene");
+        }
+    }
+
+    // スコア加算
+    public void AddScore(int v = 100)
+    {
+        Score += v;
+        txtScore.GetComponent<TMP_Text>().text = "SCORE: " + Score;
     }
 }
