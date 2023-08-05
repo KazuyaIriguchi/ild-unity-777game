@@ -42,6 +42,7 @@ namespace UnityChan
 		// Update is called once per frame
 		void  Update ()
 		{
+			/*
 			// ↑キー/スペースが押されたら、ステートを次に送る処理
 			if (Input.GetKeyDown ("up") || Input.GetButton ("Jump")) {
 				// ブーリアンNextをtrueにする
@@ -73,6 +74,7 @@ namespace UnityChan
 					previousState = currentState;
 				}
 			}
+			*/
 		}
 
 		void OnGUI ()
